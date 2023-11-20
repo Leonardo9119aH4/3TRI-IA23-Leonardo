@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Arquivos</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="main.css">
+    <script async defer src="main.js"></script>
+</head>
+
+<body>
+    <button class="menu-hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <nav class="main-menu">
+        <a href="#anchor_1">
+            <span class="material-symbols-outlined">
+                Description
+            </span>
+            O que é
+        </a>
+        <a href="#anchor_2">
+            <span class="material-symbols-outlined">
+                account_tree
+            </span>
+            Árvore B+
+        </a>
+        <a href="#anchor_3">
+            <span class="material-symbols-outlined">
+                save
+            </span>
+            FAT
+        </a>
+        <a href="#anchor_4">
+            <span class="material-symbols-outlined">
+                hard_drive
+            </span>
+            HPFS
+        </a>
+        <a href="#anchor_5">
+            <img src="assets/windows-logo.png">
+            NTFS
+        </a>
+        <a href="#anchor_6">
+            <span class="material-symbols-outlined">
+                usb
+            </span>
+            FAT16 e FAT32
+        </a>
+        <a href="#anchor_7">
+            <img src="assets/linux-logo.png">
+            EXT2
+        </a>
+        <a href="#anchor_8">
+            <img src="assets/linux-logo.png">
+            EXT3
+        </a>
+        <a href="#anchor_9">
+            <img src="assets/linux-logo.png">
+            EXT4
+        </a>
+        <a href="#anchor_10">
+            <img src="assets/redhat-logo.png">
+            ReiserFS
+        </a>
+    </nav>
+
+    <header>
+        <h1>Sistema de arquivos</h1>
+    </header>
+
+    <main>
+        <section>
+            <dialog>
+                <form>
+                    
+                </form>
+            </dialog>
+        </section>
+        <section>
+            <h1 id="anchor_1">O que é</h1>
+            <p>
+                Um sistema de arquivos é a estrutura e a organização que um sistema operacional (SO) utiliza para gerenciar e guardar arquivos em uma unidade de armazanemanto (HD, SSD, Pen Drive etc).
+            </p>
+            <p>
+                Os principais sistemas de arquivos são: FAT, FAT16 e FAT32; HPFS; NTFS (usado pelo Windows); EXT2, EXT3 e EXT4 (usados pelo Linux); ReiserFS (usados em algumas distros Linux).
+            </p>
+            <p>
+                <span id="zoom">Clique nas imagens para ver elas maior</span>
+            </p>
+        </section>
+        <section>
+            <h1 id="anchor_2">Árvore B+</h1>
+            <p>
+                Antes de falarmos dos sistemas de arquivos, precisamos entender o que é a árvore B+ (usado em banco de dados e em alguns sistema de arquivos, como NTFS e ReiferFS).
+            </p>
+            <p>
+                Uma árvore B é formada por vários nós/páginas, que é um conjunto de dados e apontadores para os seus filhos, cada apontador é chamado de chave. Uma página deve conter uma quantidade mínima de chaves, sendo definida pelo sistema de arquivos.
+            </p>
+            <p>
+                A página raíz (primeira, nada apontando para ela), não tem limite mínimo de chaves, mas tem um máximo.
+            </p>
+            <p>
+                Uma página folha é quando a página não tem apontadores para um filho.
+            </p>
+            <p>
+                A Árvore B+ permite organizar um arquivo de maneira que o processamento sequencial (característica até então pouco eficiente para árvores B) e aleatório de chaves seja eficiente.
+            </p>
+            <img src="assets/btree.png" class="openable" id="btree">
+        </section>
+        <section>
+            <h1 id="anchor_3">FAT</h1>
+            <p>
+                FAT (File Allocation Table, tabela de alocação de arquivos) é um sistema de arquivos que contém a FAT na parte superior do volume (setor 0), contendo 2 cópias do FAT caso uma delas seja danificada. O FAT é alocado em clusters com tamanho determinado pelo tamanho do volume. É vital atualizar a tabela FAT, é demorado pois o HD/SSD precisa acessar o setor 0 sempre que a tabela é atualizada.
+            </p>
+            <p>
+                O tamanho, a quantidade dos clusters e o endereçamento (armazenado na FAT) é variável para cada versão, recebendo nomenclaturas como FAT16 e FAT32.
+            </p>
+            <p>
+                Esse sistema usa a nomenclatura de arquivo 8.3 e a tabela ASCII, o nome de um arquivo tem até 8 caracteres e extensão até 3, pode ser colocado qualquer caractere exceto [. " / \ [ ] : ; | = ,].
+            </p>
+            <p>
+                Vantagens: funciona bem com unidades menores (até 200MB).
+            </p>
+            <p>
+                Desvantagens: limite de 4GB e sistema de arquivos antigo.
+            </p>
+        </section>
+        <section>
+            <h1 id="anchor_4">HPFS</h1>
+            <p>
+                O HPFS tem a mesma organização de diretório que o FAT, os nomes dos arquivos cabem até 254 caracteres de byte duplo. O HD/SSD é dividido em setores físicos de 512 bytes e os arquivos recebe, atributos especiais.
+            </p>
+            <p>
+                Os diretórios e arquivos armazena metadados como dados de modificação e data e hora de acesso. As entradas de diretório apontam para o FNODE, que é um ponteiro para os dados do arquivo ou outras estruturas que apontam para o arquivo.
+            </p>
+            <p>
+                O HPFS tenta usar o máximo de setores contíguos, organizando em uma série de faxas de 8MB.
+            </p>
+            <p>
+                O Superbloco no setor 16  contém um ponteiro para o diretório raiz, se esse bloco for corrompido, todo conteúdo da partição será perdido.
+            </p>
+            <p>
+                O Bloco Sobressalente está no setor 17 e contém vários hotfixes para apontar logicamente um setor bom no lugar de um ruim, fazendo a Correção Dinâmica.
+            </p>
+            <p>
+                Vantagens: correção dinâmica e, eficiente para unidades entre 200MB e 400MB.
+            </p>
+            <p>
+                Desvantagens: se o superbloco for corrompido, todo conteúdo da unidade será perdido.
+            </p>
+        </section>
+        <section>
+            <h1 id="anchor_5">NTFS</h1>
+            <p>
+                O NTFS é semelhante ao FAT e HPFS, com a diferença de não possuir setores especiais, como tabela FAT ou Superbloco. É um sistema de arquivos recuperável e possui várias cópias da Tabela de Arquivos Mestre. Tem suporte a correção dinâmica.
+            </p>
+            <p>
+                O NTFS usa da árvore B+ (B+Tree) para organização dos arquivos.
+            </p>
+            <p>
+                O NTFS aumentou o tamanho dos arquivos e volumes, podendo suportar até 2^64 bytes e é alocado em clusters. Tem as mesmas restrições de nome de arquivo do FAT e do HPFS.
+            </p>
+            <p>
+                O NTFS foi e é o sistema de arquivos usado pelo Windows. O Linux é capaz de ler e gravar em NTFS, mas o SO não pode ser instalado nesse sistema de arquivos. O MacOS só é capaz de ler em NTFS.
+            </p>
+            <p>
+                Vantagens: funciona bem com grandes volumes sem perder desempenho.
+            </p>
+            <p>
+                Desvantagens: alta fragmentação levando a perda de perfomance.
+            </p>
+        </section>
+        <section>
+            <h1 id="anchor_6">FAT16 e FAT32</h1>
+            <p>
+                O tamanho dos clusters do FAT16 é de até 32KB, tem endereçamento de 16 bits e possui 65536 clusters, tendo tamanho de partição máxima 2GB.
+            </p>
+            <p>
+                O FAT32 tem endereçamento de 32 bits, e até 2^28 clusters, com cada clusters tendo mesmo tamanho do FAT16 (32KB), tendo tamanho de partição máxima de 2TB.
+            </p>
+            <p>
+                O FAT32 é o sistema de arquivos mais versátil, sendo compatível com praticamente todos SOs e com a maiora dos dispositivos.
+            </p>
+            <p>
+                Vantagens: funcionam bem com unidades removíveis (como pen drives) e são reconhecidos por diferentes SOs.
+            </p>
+            <p>
+                Desvantagens: limite de tamanho de arquivo e alta fragmentação.
+            </p>
+        </section>
+        <section>
+            <h1 id="anchor_7">EXT2</h1>
+            <img src="assets/ext2.png" class="openable" id="ext2">
+            <p>
+                A partição EXT2 é dividida em vários blocos com 4KB cada, tendo tamanho de partição máxima de 2TB.
+            </p>
+            <p>
+                Cada bloco é subdividido em sub-blocos, com 512 bits cada.
+            </p>
+            <p>
+                Contém um superbloco de 1024 bits, armazenando dados sobre o Nó-i.
+            </p>
+            <p>
+                Nó-i é uma estrutura de dados de 128 bits e armazena metadados sobre os arquivos e os setores ocupados pelos arquivos.
+            </p>
+            <p>
+                São mostrados 32768 blocos, com um bit indicando se o bloco está livre ou não, os tamanhos dos blocos são dinâmicos e são agrupados blocos com mesmo nó-i.
+            </p>
+            <p>
+                O EXT2 não tem ferramenta de desfragmentação.
+            </p>
+            <p>
+                Vantagem: fragmentação mínima ou nenhuma.
+            </p>
+            <p>
+                Desvantagem: não possui Journaling.
+            </p>
+        </section>
+        <section>
+            <h1 id="anchor_8">EXT3</h1>
+            <p>
+                O EXT3 é semelhante ao EXT2, mas adiciona o Journaling, que é um registro sobre os metadados dos arquivos, sendo útil para manter a consistência dos arquivos em casos de falhas ou desligamentos inesperados.
+            </p>
+            <p>
+                O tamanho máximo de partição do EXT3 é de 16TB.
+            </p>
+            <img src="assets/ext3.png" class="openable" id="ext3">
+            <p>
+                Vantagem: fragmentação mínima ou nenhuma.
+            </p>
+            <p>
+                Desvantagem: não possui verificação rápida.
+            </p>
+        </section>
+        <section>
+            <h1 id="anchor_9">EXT4</h1>
+            <p>
+                O EXT4 é semelhante ao EXT3, mas muito melhorado, tendo tamanho máximo de bloco aumentado para 1MB e tamanho máximo de partição de 1EB (Exabyte). 
+            </p>
+            <p>
+                Contém o multiblock, permitindo alocar vários blocos de uma vez.
+            </p>
+            <p>
+                Contém o extents, que permite armazenar arquivos contiguamente em vários blocos.
+            </p>
+            <p>
+                Esse sistema de arquivos possui a alocação atrasada,  aumentando espaços livres e evitando a fragmentação.
+            </p>
+            <img src="assets/ext4.png" class="openable" id="ext4">
+            <p>
+                Os EXT2, EXT3 e EXT4 são os sistemas de arquivos padrão da maioria das distros Linux, sendo a melhor delas o EXT4.
+            </p>
+            <p>
+                Vantagem: fragmentação mínima ou nenhuma.
+            </p>
+            <p>
+                Desvantagens: incompatível com EXT2 e EXT3, risco de corromper arquivos em modo writeback.
+            </p>
+        </section>
+        <section>
+            <h1 id="anchor_10">ReiserFS</h1>
+            <p>
+                Tem semelhanças com o EXT3 e o NTFS, contendo a Árvore B+ e o Journaling. 
+            </p>
+            <p>
+                Os arquivos se localizam em um estrutura semelhante a uma árvore.
+            </p>
+            <p>
+                Tem blocos de vários tamanhos, desde 512 bytes, até 8192 bytes.
+            </p>
+            <p>
+                Algumas distros Linux usam ReiserFS, como OpenSUSE por exemplo. Essas distros podem ser tanto instaladas em EXT ou em ReiserFS.
+            </p>
+            <p>
+                Vantagem: capaz de abrir vários arquivos pequenos de uma vez.
+            </p>
+            <p>
+                Desvantagem: alto consumo de CPU quando o disco é usado.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <div>
+            <li class="tituloFooter">Contato</li>
+            <ul>
+                <li>Email: WindowsNo@LinuxYes.kernel</li>
+                <li>Telefone: +55 47 91111-6969</li>
+                <li>Central de suporte</li>
+            </ul>
+        </div>
+        <div>
+            <li class="tituloFooter">Informações</li>
+            <ul>   
+                <li><a href="#">Perguntas frequentes</a></li>
+                <li><a href="#">Política de privacidade</a></li>
+                <li><a href="#">Termos de uso</a></li>
+            </ul><ul>
+            <li><a href="#">Conheça a gente</a></li>
+            <li><a href="#">Trabalhe conosco</a></li>
+            </ul>
+        </div>
+        <div>
+            <li class="tituloFooter">Mais sites</li>
+            <ul>  
+                <li><a href="https://ifc.edu.br/">IFC Reitoria</a></li>
+                <li><a href="http://www.camboriu.ifc.edu.br/">IFC Camboriú</a></li>
+                <li><a href=#>Mini Wiki</a></li>
+            </ul>
+        </div>
+    </footer>
+
+</body>
+
+</html>
